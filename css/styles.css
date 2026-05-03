@@ -794,6 +794,8 @@ body {
     overflow: hidden;
     transition: var(--transition);
     border: 1px solid transparent;
+    display: flex;
+    flex-direction: column;
 }
 
 .service-card::before {
@@ -852,6 +854,7 @@ body {
 
 .service-list {
     list-style: none;
+    margin-bottom: 28px;
 }
 
 .service-list li {
@@ -876,6 +879,33 @@ body {
     clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 }
 
+.service-card-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--accent);
+}
+
+.service-card-action svg {
+    width: 16px;
+    height: 16px;
+    transition: var(--transition-fast);
+}
+
+.service-card-action:hover {
+    color: var(--accent-dark);
+}
+
+.service-card-action:hover svg {
+    transform: translateX(4px);
+}
+
 @media (min-width: 768px) {
     .services-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -896,9 +926,166 @@ body {
     grid-template-columns: repeat(2, 1fr);
 }
 
+.services-grid-3col {
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+    .services-grid-3col {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media (max-width: 767px) {
     .services-grid-2col {
         grid-template-columns: 1fr;
+    }
+}
+
+/* Service detail pages */
+.service-detail {
+    background: var(--white);
+}
+
+.detail-back-link {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 36px;
+    color: var(--accent);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.detail-back-link::before {
+    content: '';
+    width: 18px;
+    height: 2px;
+    background: var(--accent);
+    margin-right: 12px;
+}
+
+.service-detail-intro {
+    display: grid;
+    gap: 32px;
+    margin-bottom: 56px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.service-detail-summary {
+    max-width: 680px;
+}
+
+.service-detail-summary p {
+    font-size: 1.0625rem;
+    color: var(--text);
+    margin-bottom: 20px;
+}
+
+.service-detail-summary p:last-child {
+    margin-bottom: 0;
+}
+
+.service-capability-grid {
+    display: grid;
+    gap: 24px;
+}
+
+.service-capability-card {
+    background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-cream) 100%);
+    border: 1px solid rgba(31, 91, 153, 0.12);
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-capability-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--accent);
+}
+
+.service-capability-label {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.service-capability-card h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.4rem);
+    letter-spacing: 0.02em;
+    line-height: 1;
+    color: var(--primary);
+    margin-bottom: 18px;
+}
+
+.service-capability-card h4 {
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--secondary);
+    margin: 28px 0 12px;
+}
+
+.service-capability-card p {
+    color: var(--text);
+    line-height: 1.75;
+    margin-bottom: 18px;
+}
+
+.service-capability-card p:last-child {
+    margin-bottom: 0;
+}
+
+.service-capability-card ul {
+    list-style: none;
+    display: grid;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.service-capability-card li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: var(--text);
+}
+
+.service-capability-card li::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    flex-shrink: 0;
+    margin-top: 10px;
+}
+
+@media (min-width: 900px) {
+    .service-detail-intro {
+        grid-template-columns: 0.9fr 1.1fr;
+        align-items: start;
+    }
+
+    .service-capability-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .service-capability-card-wide {
+        grid-column: 1 / -1;
     }
 }
 
