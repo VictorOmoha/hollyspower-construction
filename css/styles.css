@@ -989,6 +989,20 @@ body {
     margin-bottom: 0;
 }
 
+.service-detail-photo {
+    margin: -12px 0 56px;
+    aspect-ratio: 16 / 7;
+    overflow: hidden;
+    background: var(--bg-light);
+}
+
+.service-detail-photo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
 .service-capability-grid {
     display: grid;
     gap: 24px;
@@ -1086,6 +1100,13 @@ body {
 
     .service-capability-card-wide {
         grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 767px) {
+    .service-detail-photo {
+        margin: -8px 0 40px;
+        aspect-ratio: 4 / 3;
     }
 }
 
