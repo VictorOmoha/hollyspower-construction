@@ -1139,6 +1139,17 @@ body {
     transition: var(--transition);
 }
 
+.why-us-item-link {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.why-us-item-link:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 4px;
+}
+
 .why-us-item:hover {
     background: rgba(255, 255, 255, 0.08);
     border-color: var(--accent);
