@@ -97,7 +97,7 @@ const siteSearchPages = [
         url: 'contact.html',
         category: 'Contact',
         description: 'Contact Hollyspower Construction by phone or email and find business hours.',
-        keywords: 'contact phone email call message blessing hollyspower 919 885 7828 business hours Monday Friday Saturday'
+        keywords: 'contact phone email call message info hollyspower 919 885 7828 business hours Monday Friday'
     },
     {
         title: 'Get a Quote',
