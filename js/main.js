@@ -345,24 +345,55 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Form submission
+// Email form submissions
+const recipientEmail = 'info@hollyspower.com';
+
+function getFormFieldLabel(form, fieldName) {
+    const field = form.elements[fieldName];
+    if (!field || !field.id) return fieldName;
+
+    const label = form.querySelector(`label[for="${field.id}"]`);
+    return label ? label.textContent.replace(/\s*\*$/, '') : fieldName;
+}
+
+function getFormFieldValue(field) {
+    if (!field) return '';
+
+    if (field.tagName === 'SELECT' && field.selectedIndex >= 0) {
+        return field.options[field.selectedIndex].text.trim();
+    }
+
+    return field.value.trim();
+}
+
+function openEmailFromForm(form, subjectPrefix) {
+    const formData = new FormData(form);
+    const name = formData.get('name') || 'Website Visitor';
+    const subject = `${subjectPrefix} - ${name}`;
+    const lines = [];
+
+    formData.forEach((value, key) => {
+        const field = form.elements[key];
+        const fieldValue = getFormFieldValue(field) || value;
+        if (!fieldValue) return;
+
+        lines.push(`${getFormFieldLabel(form, key)}: ${fieldValue}`);
+    });
+
+    const body = [
+        `${subjectPrefix} submitted from hollyspower.com`,
+        '',
+        ...lines
+    ].join('\n');
+
+    window.location.href = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
-
-        // Get form data
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData);
-
-        // Here you would typically send the data to your server
-        console.log('Form submitted:', data);
-
-        // Show success message
-        alert('Thank you for your message! We will get back to you within 24 hours.');
-
-        // Reset form
-        this.reset();
+        openEmailFromForm(this, 'New Contact Message');
     });
 }
 
@@ -371,19 +402,7 @@ const quoteForm = document.getElementById('quoteForm');
 if (quoteForm) {
     quoteForm.addEventListener('submit', function(e) {
         e.preventDefault();
-
-        // Get form data
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData);
-
-        // Here you would typically send the data to your server
-        console.log('Quote request submitted:', data);
-
-        // Show success message
-        alert('Thank you for your quote request! We will review your project details and get back to you within 24 hours with a detailed estimate.');
-
-        // Reset form
-        this.reset();
+        openEmailFromForm(this, 'New Quote Request');
     });
 }
 
