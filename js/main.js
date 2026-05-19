@@ -93,6 +93,13 @@ const siteSearchPages = [
         keywords: 'projects portfolio RCCG Victory Temple Knightdale Church Auditorium Wendell North Carolina ground up construction church auditorium site preparation foundation exterior finishes interior build out community worship'
     },
     {
+        title: 'Careers',
+        url: 'careers.html',
+        category: 'Employment',
+        description: 'Employment opportunities and application form for construction positions with Hollyspower Construction.',
+        keywords: 'careers employment jobs application construction jobs concrete finishers carpenters rod busters superintendent finisher laborer estimator work hiring'
+    },
+    {
         title: 'Contact',
         url: 'contact.html',
         category: 'Contact',
@@ -359,6 +366,10 @@ function getFormFieldLabel(form, fieldName) {
 function getFormFieldValue(field) {
     if (!field) return '';
 
+    if (field.type === 'file') {
+        return field.files && field.files.length ? Array.from(field.files).map(file => file.name).join(', ') : '';
+    }
+
     if (field.tagName === 'SELECT' && field.selectedIndex >= 0) {
         return field.options[field.selectedIndex].text.trim();
     }
@@ -403,6 +414,30 @@ if (quoteForm) {
     quoteForm.addEventListener('submit', function(e) {
         e.preventDefault();
         openEmailFromForm(this, 'New Quote Request');
+    });
+}
+
+const applicationForm = document.getElementById('applicationForm');
+if (applicationForm) {
+    applicationForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const email = this.elements.email ? this.elements.email.value.trim() : '';
+        const confirmEmail = this.elements.confirm_email ? this.elements.confirm_email.value.trim() : '';
+        if (email && confirmEmail && email.toLowerCase() !== confirmEmail.toLowerCase()) {
+            alert('Email addresses must match before submitting your application.');
+            return;
+        }
+
+        const firstName = this.elements.first_name ? this.elements.first_name.value.trim() : '';
+        const lastName = this.elements.last_name ? this.elements.last_name.value.trim() : '';
+        const nameInput = document.createElement('input');
+        nameInput.type = 'hidden';
+        nameInput.name = 'name';
+        nameInput.value = `${firstName} ${lastName}`.trim() || 'Employment Applicant';
+        this.appendChild(nameInput);
+        openEmailFromForm(this, 'New Employment Application');
+        nameInput.remove();
     });
 }
 
